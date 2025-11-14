@@ -10,14 +10,29 @@ A modern, mobile-first game hub for domino and dice games built with React, Type
 - **Dark Mode** by default with a bone-themed color palette
 
 ### 🀀 Domino Games
-- **Draw Game** (fully playable with AI opponent)
+- **Draw Game** (fully playable with AI opponent OR multiplayer)
   - Touch-optimized drag-and-drop using @dnd-kit
   - Snap-to-grid placement with visual feedback
   - Valid move highlighting
   - Smooth animations for domino placement
   - AI opponent with basic strategy
   - Win condition detection
+  - **Real-time Multiplayer** via WebSocket
 - **Additional Games** (Coming Soon): Block, Mexican Train, Chickenfoot
+
+### 🌐 Multiplayer Features
+- **Real-time WebSocket Multiplayer** using Socket.io
+  - Create or join game rooms with 6-letter codes
+  - Support for 2-4 players per room
+  - Real-time game state synchronization
+  - Player presence indicators (online/offline)
+  - Host controls for starting games
+  - Automatic reconnection handling
+- **Lobby System**
+  - Easy room creation and joining
+  - Shareable room codes
+  - Player list with host indicator
+  - Waiting room with "Start Game" for host
 
 ### 🎲 Dice Games
 - **3D Dice Roller** with realistic physics
@@ -64,14 +79,23 @@ git clone https://github.com/appledonkey/boneyard.git
 cd boneyard
 ```
 
-2. Install dependencies:
+2. Install dependencies for both client and server:
 ```bash
 npm install
+cd server && npm install && cd ..
 ```
 
-3. Start the development server:
+3. Start the development servers:
+
+**Terminal 1 - Frontend:**
 ```bash
 npm run dev
+```
+
+**Terminal 2 - Backend (for multiplayer):**
+```bash
+cd server
+npm start
 ```
 
 4. Open your browser and navigate to `http://localhost:3000`
@@ -109,9 +133,13 @@ npm run preview
 - **Zustand** - Lightweight state management
 - **React Context** - For audio and game settings
 
+### Multiplayer & Backend
+- **Socket.io** - Real-time multiplayer (✅ Implemented!)
+- **Express** - Backend server for game rooms
+- **WebSocket** - Bi-directional client-server communication
+
 ### Future Additions (Ready for Integration)
-- **Socket.io** - Real-time multiplayer
-- **Supabase/Firebase** - Backend, auth, and database
+- **Supabase/Firebase** - User auth and persistent data
 - **Stripe** - Payment processing for cosmetics
 
 ## 📱 Mobile Optimization
@@ -132,6 +160,17 @@ The Boneyard is designed mobile-first with:
 3. If you can't play, draw from the boneyard
 4. First player to empty their hand wins!
 
+### Multiplayer Draw (How to Play)
+1. Navigate to Domino Games → Multiplayer Draw
+2. **Create a Room**: Click "Create Room" to host a game
+   - Share the 6-letter room code with friends
+   - Wait for players to join (2-4 players)
+   - Click "Start Game" when ready
+3. **Join a Room**: Click "Join Room" and enter the code
+   - Wait for the host to start the game
+4. Gameplay follows standard Draw rules with turn-based play
+5. Connection status shows which players are online
+
 ### Dice Roller
 - Roll two dice with realistic physics
 - Dice tumble and bounce on the table
@@ -150,20 +189,27 @@ boneyard/
 │   │   ├── AudioContext.tsx    # Sound effects & haptics
 │   │   └── GameContext.tsx     # Game state & settings
 │   ├── hooks/
-│   │   └── useDrawGame.ts      # Draw game logic
+│   │   ├── useDrawGame.ts      # Single-player Draw game logic
+│   │   └── useMultiplayer.ts   # Multiplayer WebSocket hook
 │   ├── pages/
-│   │   ├── Home.tsx            # Landing page
-│   │   ├── DominoGames.tsx     # Domino game selection
-│   │   ├── DiceGames.tsx       # Dice game selection
-│   │   ├── Store.tsx           # In-app store
+│   │   ├── Home.tsx                # Landing page
+│   │   ├── DominoGames.tsx         # Domino game selection
+│   │   ├── DiceGames.tsx           # Dice game selection
+│   │   ├── MultiplayerLobby.tsx    # Multiplayer lobby
+│   │   ├── Store.tsx               # In-app store
 │   │   └── games/
-│   │       └── DrawGame.tsx    # Draw domino game
+│   │       ├── DrawGame.tsx        # Single-player Draw
+│   │       └── DrawMultiplayer.tsx # Multiplayer Draw
 │   ├── types/
 │   │   └── domino.ts           # Type definitions
 │   ├── App.tsx                 # Root component
 │   ├── main.tsx                # Entry point
 │   └── index.css               # Global styles
+├── server/                     # Multiplayer backend
+│   ├── index.js                # Socket.io server
+│   └── package.json            # Server dependencies
 ├── public/                     # Static assets
+├── .env.example                # Environment variables template
 ├── package.json
 ├── tsconfig.json
 ├── tailwind.config.js
@@ -179,26 +225,32 @@ The "bone" theme:
 
 ## 🔮 Roadmap
 
-### Phase 1 (Current)
+### Phase 1 ✅ COMPLETE
 - ✅ Home screen and navigation
 - ✅ Draw domino game with AI
 - ✅ Basic dice roller with physics
 - ✅ Store mockup
 - ✅ Sound effects and haptics
 
-### Phase 2 (Next)
-- [ ] WebSocket multiplayer for Draw game
-- [ ] Lobby system with private rooms
+### Phase 2 ✅ COMPLETE
+- ✅ WebSocket multiplayer for Draw game
+- ✅ Lobby system with private room codes
+- ✅ Real-time game synchronization
+- ✅ Player presence indicators
+
+### Phase 3 (Next)
 - [ ] Additional domino games (Block, Mexican Train)
 - [ ] Complete Yahtzee implementation
+- [ ] Tournament mode for multiplayer
 
-### Phase 3 (Future)
+### Phase 4 (Future)
 - [ ] User authentication (OAuth)
-- [ ] Backend integration (Supabase)
-- [ ] Real payment processing
+- [ ] Persistent user accounts (Supabase)
+- [ ] Real payment processing (Stripe)
 - [ ] Leaderboards and statistics
 - [ ] More dice games (Farkle, Liar's Dice, Craps)
-- [ ] Tournament mode
+- [ ] Spectator mode
+- [ ] Game replays
 
 ## 🤝 Contributing
 

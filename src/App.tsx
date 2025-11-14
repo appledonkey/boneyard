@@ -5,6 +5,8 @@ import Home from './pages/Home'
 import DominoGames from './pages/DominoGames'
 import DiceGames from './pages/DiceGames'
 import DrawGame from './pages/games/DrawGame'
+import DrawMultiplayer from './pages/games/DrawMultiplayer'
+import MultiplayerLobby from './pages/MultiplayerLobby'
 import Store from './pages/Store'
 import Layout from './components/Layout'
 
@@ -19,6 +21,8 @@ function App() {
               <Route path="/dominoes" element={<DominoGames />} />
               <Route path="/dice" element={<DiceGames />} />
               <Route path="/play/draw" element={<DrawGame />} />
+              <Route path="/multiplayer-lobby" element={<MultiplayerLobby />} />
+              <Route path="/play/draw-multiplayer" element={<DrawMultiplayer />} />
               <Route path="/store" element={<Store />} />
             </Routes>
           </Layout>

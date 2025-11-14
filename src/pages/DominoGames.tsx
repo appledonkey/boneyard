@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Users, Trophy, Zap } from 'lucide-react'
+import { Users, Trophy, Zap, Wifi } from 'lucide-react'
 import { useAudio } from '../contexts/AudioContext'
 
 interface GameCard {
@@ -80,6 +80,42 @@ export default function DominoGames() {
           <p className="text-bone-400 text-lg">
             Choose your game variant
           </p>
+        </motion.div>
+
+        {/* Multiplayer section */}
+        <motion.div
+          className="mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <button
+            onClick={() => {
+              playSound('click')
+              vibrate(10)
+              navigate('/multiplayer-lobby')
+            }}
+            className="w-full glass-effect hover:glow-effect rounded-xl p-6 transition-all duration-300 touch-manipulation"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="p-4 bg-bone-600/30 rounded-full">
+                  <Wifi size={32} className="text-bone-300" />
+                </div>
+                <div className="text-left">
+                  <h3 className="text-2xl font-bold text-bone-100 mb-1">
+                    Multiplayer Draw
+                  </h3>
+                  <p className="text-bone-400 text-sm">
+                    Play with friends in real-time
+                  </p>
+                </div>
+              </div>
+              <div className="text-bone-500 text-sm hidden sm:block">
+                Tap to join →
+              </div>
+            </div>
+          </button>
         </motion.div>
 
         {/* Game grid */}
