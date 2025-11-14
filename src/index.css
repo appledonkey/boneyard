@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-bone-900 text-bone-50 antialiased;
+    touch-action: pan-x pan-y;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  #root {
+    @apply min-h-screen w-full;
+  }
+}
+
+@layer utilities {
+  .touch-none {
+    touch-action: none;
+  }
+
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .glass-effect {
+    @apply bg-bone-800/50 backdrop-blur-md border border-bone-700/50;
+  }
+
+  .glow-effect {
+    box-shadow: 0 0 20px rgba(167, 153, 128, 0.3);
+  }
+
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Custom animations */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px) rotate(-1deg); }
+  75% { transform: translateX(5px) rotate(1deg); }
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Haptic feedback simulation */
+@keyframes haptic-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+.haptic-feedback {
+  animation: haptic-pulse 0.1s ease-out;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 3px solid rgba(167, 153, 128, 0.1);
+  border-radius: 50%;
+  border-top: 3px solid #a79980;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
